@@ -5,16 +5,16 @@ var helpers = require('../utils/helpers');
 
 var Main = React.createClass({
 
-  getInitialState: function(){
+  getInitialState: function () {
     return {
       newestArticles: ""
     }
   },
 
-  componentDidMount: function(){
+  componentDidMount: function () {
 
     helpers.getSaved()
-      .then(function(articleData){
+      .then(function (articleData) {
         this.setState({
           newestArticle: articleData.data
         });
@@ -22,31 +22,31 @@ var Main = React.createClass({
       }.bind(this))
   },
 
-  handleClick: function(item, event)  {
+  handleClick: function (item, event) {
 
     helpers.deleteSaved(item.title, item.date, item.url)
-      .then(function(data){
+      .then(function (data) {
 
-      helpers.getSaved()
-        .then(function(articleData){
+        helpers.getSaved()
+          .then(function (articleData) {
 
-          this.setState({
-            newestArticle: articleData.data
-          });
+            this.setState({
+              newestArticle: articleData.data
+            });
 
-        }.bind(this))
+          }.bind(this))
 
       }.bind(this))
   },
 
-  render: function()  {
+  render: function () {
 
     if (this.state.newestArticle == "") {
-      return(
+      return (
 
         <li className="list-group-item">
           <h3>
-              <span><em>Save your first article...</em></span>
+            <span><em>Save your first article...</em></span>
           </h3>
         </li>
 
@@ -55,22 +55,22 @@ var Main = React.createClass({
 
     else {
 
-      var articles = this.state.newestArticle.map(function(article, index){
+      var articles = this.state.newestArticle.map(function (article, index) {
 
-        return(
+        return (
 
-            <div key={index}>
-              <li className="list-group-item" >
-                <h3>
-                    <span><em>{article.title}</em></span>
-                    <span className="btn-group pull-right" >
-                      <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
-                      <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>Delete</button>
-                    </span>
-                </h3>
-                <p>Date Published: {article.date}</p>
-              </li>
-            </div>
+          <div key={index}>
+            <li className="list-group-item" >
+              <h3>
+                <span><em>{article.title}</em></span>
+                <span className="btn-group pull-right" >
+                  <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
+                  <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>Delete</button>
+                </span>
+              </h3>
+              <p>Date Published: {article.date}</p>
+            </li>
+          </div>
         )
 
       }.bind(this))
@@ -78,7 +78,7 @@ var Main = React.createClass({
     }
 
 
-    return(
+    return (
 
       <div className="main-container">
         <div className="row">

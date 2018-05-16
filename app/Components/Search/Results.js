@@ -5,7 +5,7 @@ var helpers = require('../../utils/helpers');
 
 var Results = React.createClass({
 
-  getInitialState: function(){
+  getInitialState: function () {
     return {
       title: "",
       url: "",
@@ -13,27 +13,27 @@ var Results = React.createClass({
     }
   },
 
-  handleClick: function(item, event){
+  handleClick: function (item, event) {
 
     helpers.postSaved(item.headline.main, item.pub_date, item.web_url)
-      .then(function(data){
+      .then(function (data) {
       }.bind(this))
 
   },
 
-  render: function(){
+  render: function () {
 
-    if (!this.props.results.hasOwnProperty('docs')){
+    if (!this.props.results.hasOwnProperty('docs')) {
 
-      return(
+      return (
 
         <li className="list-group-item">
 
           <h3>
-              <span><em>Search for articles to begin.</em></span>
+            <span><em>Search for articles to begin.</em></span>
           </h3>
 
-          </li>
+        </li>
 
       )
 
@@ -41,16 +41,16 @@ var Results = React.createClass({
 
     else {
 
-      var articles = this.props.results.docs.map(function(article, index){
+      var articles = this.props.results.docs.map(function (article, index) {
 
-        return(
+        return (
 
-            <div key={index}>
+          <div key={index}>
 
-              <li className="list-group-item" >
+            <li className="list-group-item" >
 
               <h3>
-                  <span><em>{article.headline.main}</em></span>
+                <span><em>{article.headline.main}</em></span>
                 <span className="btn-group pull-right" >
                   <a href={article.web_url} target="_blank"><button className="btn btn-default ">View Article</button></a>
 
@@ -59,17 +59,17 @@ var Results = React.createClass({
               </h3>
               <p>Date Published: {article.pub_date}</p>
 
-              </li>
+            </li>
 
-            </div>
+          </div>
         )
 
       }.bind(this))
 
     }
 
-    return(
-      <div className ="main-container">
+    return (
+      <div className="main-container">
 
 
         <div className="row">

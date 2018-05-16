@@ -8,9 +8,9 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(bodyParser.json({type:'application/vnd.api+json'}));
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 app.use(express.static('./public'));
 
@@ -29,16 +29,16 @@ db.once('open', function () {
   console.log('Mongoose connection successful.');
 });
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.sendFile('./public/index.html');
 })
 
-app.get('/api/saved', function(req, res) {
+app.get('/api/saved', function (req, res) {
 
   Article.find({})
-    .exec(function(err, doc){
+    .exec(function (err, doc) {
 
-      if(err){
+      if (err) {
         console.log(err);
       }
       else {
@@ -47,15 +47,15 @@ app.get('/api/saved', function(req, res) {
     })
 });
 
-app.post('/api/saved', function(req, res){
+app.post('/api/saved', function (req, res) {
   var newArticle = new Article(req.body);
 
   var title = req.body.title;
   var date = req.body.date;
   var url = req.body.url;
 
-  newArticle.save(function(err, doc){
-    if(err){
+  newArticle.save(function (err, doc) {
+    if (err) {
       console.log(err);
     } else {
       res.send(doc._id);
@@ -63,12 +63,12 @@ app.post('/api/saved', function(req, res){
   });
 });
 
-app.delete('/api/saved/', function(req, res){
+app.delete('/api/saved/', function (req, res) {
 
   var url = req.param('url');
 
-  Article.find({"url": url}).remove().exec(function(err, data){
-    if(err){
+  Article.find({ "url": url }).remove().exec(function (err, data) {
+    if (err) {
       console.log(err);
     }
     else {
@@ -78,6 +78,6 @@ app.delete('/api/saved/', function(req, res){
 });
 
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App listening on PORT: " + PORT);
 });

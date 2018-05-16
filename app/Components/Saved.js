@@ -5,16 +5,16 @@ var helpers = require('../utils/helpers');
 
 var Main = React.createClass({
 
-  getInitialState: function(){
+  getInitialState: function () {
     return {
       savedArticles: ""
     }
   },
 
-  componentDidMount: function(){
+  componentDidMount: function () {
 
     helpers.getSaved()
-      .then(function(articleData){
+      .then(function (articleData) {
         this.setState({
           savedArticles: articleData.data
         });
@@ -22,55 +22,55 @@ var Main = React.createClass({
       }.bind(this))
   },
 
-  handleClick: function(item, event){
+  handleClick: function (item, event) {
 
     helpers.deleteSaved(item.title, item.date, item.url)
-      .then(function(data){
+      .then(function (data) {
 
-      helpers.getSaved()
-        .then(function(articleData){
-          this.setState({
-            savedArticles: articleData.data
-          });
+        helpers.getSaved()
+          .then(function (articleData) {
+            this.setState({
+              savedArticles: articleData.data
+            });
 
-        }.bind(this))
+          }.bind(this))
 
 
 
       }.bind(this))
   },
 
-  render: function(){
+  render: function () {
 
     if (this.state.savedArticles == "") {
-      return(
+      return (
 
         <li className="list-group-item">
           <h3>
-              <span><em>Oops! It looks like you haven't saved any articles yet!</em></span>
+            <span><em>Oops! It looks like you haven't saved any articles yet!</em></span>
           </h3>
         </li>
       )
     }
     else {
-      var articles = this.state.savedArticles.map(function(article, index){
-        return(
-            <div key={index}>
-              <li className="list-group-item" >
-                <h3>
-                  <span><em>{article.title}</em></span>
-                  <span className="btn-group pull-right" >
-                    <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
-                    <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>Delete</button>
-                  </span>
-                </h3>
-                <p>Date Published: {article.date}</p>
-              </li>
-            </div>
+      var articles = this.state.savedArticles.map(function (article, index) {
+        return (
+          <div key={index}>
+            <li className="list-group-item" >
+              <h3>
+                <span><em>{article.title}</em></span>
+                <span className="btn-group pull-right" >
+                  <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
+                  <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>Delete</button>
+                </span>
+              </h3>
+              <p>Date Published: {article.date}</p>
+            </li>
+          </div>
         )
       }.bind(this))
     }
-    return(
+    return (
       <div className="main-container">
         <div className="row">
           <div className="col-lg-12">

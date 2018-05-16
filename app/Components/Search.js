@@ -8,7 +8,7 @@ var helpers = require('../utils/helpers');
 
 var Search = React.createClass({
 
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       queryTerm: "",
       startYear: "",
@@ -17,26 +17,24 @@ var Search = React.createClass({
     }
   },
 
-  componentDidUpdate: function(prevProps, prevState)  {
+  componentDidUpdate: function (prevProps, prevState) {
 
 
-    if (this.state.queryTerm != "" && (prevState.queryTerm != this.state.queryTerm || prevState.startYear != this.state.startYear || prevState.endYear != this.state.endYear))
-    {
+    if (this.state.queryTerm != "" && (prevState.queryTerm != this.state.queryTerm || prevState.startYear != this.state.startYear || prevState.endYear != this.state.endYear)) {
       helpers.runQuery(this.state.queryTerm, this.state.startYear, this.state.endYear)
 
-      .then(function(data)  {
-        if (data != this.state.results)
-        {
-          this.setState({
-            results: data
-          })
-        }
+        .then(function (data) {
+          if (data != this.state.results) {
+            this.setState({
+              results: data
+            })
+          }
 
-      }.bind(this))
+        }.bind(this))
     }
   },
 
-  setQuery: function(newQuery, newStart, newEnd){
+  setQuery: function (newQuery, newStart, newEnd) {
 
     this.setState({
       queryTerm: newQuery,
@@ -45,15 +43,15 @@ var Search = React.createClass({
     })
   },
 
-  render: function(){
+  render: function () {
 
-    return(
+    return (
 
       <div className="main-container">
 
         <Query updateSearch={this.setQuery} />
 
-        <Results results={this.state.results}/>
+        <Results results={this.state.results} />
 
       </div>
 
